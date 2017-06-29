@@ -40,6 +40,7 @@ export default class DistrictRepository {
     });
     return this.schoolDistrictInfo[schoolDistrictLocation];
   }
+
   findAllMatches(userInput = ''){
     const newUserInput = userInput.toUpperCase()
     const districtKeys = Object.keys(this.schoolDistrictInfo)
@@ -61,4 +62,36 @@ export default class DistrictRepository {
     }, [])
     return matchedDistricts
   }
+
+  findAverage(userInput){
+    const districtNames = this.findByName(userInput)
+    const districtKeyNames = Object.keys(districtNames.data)
+    console.log(districtKeyNames);
+    let districtAdd = 0;
+    const DistrictAddition = districtKeyNames.forEach((currentDistricts)=>{
+      return districtAdd = districtAdd + districtNames.data[currentDistricts]
+    })
+      let districtAddResult = districtAdd/districtKeyNames.length
+      let districtAvg = parseFloat(districtAddResult.toFixed(3));
+      return districtAvg
+  }
+
+compareDistrictAverages(district1, district2){
+  const dist1 = this.findByName(district1)
+  const dist2 = this.findByName(district2)
+
+  const dist1Avg = this.findAverage(dist1.location)
+  const dist2Avg = this.findAverage(dist2.location)
+  const comparedAvg = (dist1Avg + dist2Avg)/2
+  const fixedNum = parseFloat(comparedAvg.toFixed(3));
+
+  console.log(dist1Avg, dist2Avg);
+  return {
+    [dist1.location]: dist1Avg,
+    [dist2.location]: dist2Avg,
+    "compared": fixedNum
+  }
+}
+
+
 }
