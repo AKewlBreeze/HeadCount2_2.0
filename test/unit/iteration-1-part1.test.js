@@ -15,11 +15,11 @@ describe('DistrictRepository iteration 1 - part 1', () =>  {
   test('findByName returns an object with its individual district information', () => {
 
     expect(typeof district.findByName('Colorado')).toEqual('object');
-    expect(district.findByName('Colorado').location).toEqual('Colorado');
+    expect(district.findByName('Colorado').location).toEqual('COLORADO');
   });
 
   test('findByName search is not case sensitive', () => {
-    expect(district.findByName('ColoRAdo').location).toEqual('Colorado');
+    expect(district.findByName('ColoRAdo').location).toEqual('COLORADO');
     expect(district.findByName('ACADEmY 20').location).toEqual('ACADEMY 20');
   });
 
@@ -37,7 +37,7 @@ describe('DistrictRepository iteration 1 - part 1', () =>  {
     expect(academy.data).toEqual(result);
   });
 
-  test('district data is sanitized and defaults to 0', () => {
+  test.only('district data is sanitized and defaults to 0', () => {
     const academy = district.findByName('ARICKAREE R-2');
     const result = {"2004": 1, "2005": 0, "2006": 0.125, "2007": 0, "2008": 1, "2009": 1, "2010": 1, "2011": 1, "2012": 1, "2013": 1, "2014": 1}
 
